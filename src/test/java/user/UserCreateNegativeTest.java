@@ -16,8 +16,8 @@ public class UserCreateNegativeTest {
     private static final int STATUS_CODE = 403;
     private final String message;
     private final boolean duplicateLogin;
-    private UserClient userClient;
     private final User user;
+    private UserClient userClient;
     private String token;
 
     public UserCreateNegativeTest(User user, String message, boolean duplicateLogin) {
@@ -51,10 +51,6 @@ public class UserCreateNegativeTest {
             token = createUserResponse.extract().path("accessToken");
             createUserResponse = userClient.create(user);
         }
-
-//        System.out.println("email : " + user.getEmail());
-//        System.out.println("password : " + user.getPassword());
-//        System.out.println("name : " + user.getName());
         assertEquals("Статус код ответа не соответствует ожидаемому", STATUS_CODE, createUserResponse.extract().statusCode());
         assertEquals("Тело ответа не соответствует ожидаемому", message, createUserResponse.extract().path("message"));
 

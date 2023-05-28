@@ -1,4 +1,4 @@
-package user;
+package user.login;
 
 import clients.UserClient;
 import io.qameta.allure.Description;
@@ -7,6 +7,8 @@ import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import user.User;
+import user.UserGenerator;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

@@ -1,4 +1,4 @@
-package user;
+package user.login;
 
 import clients.UserClient;
 import io.qameta.allure.Description;
@@ -8,6 +8,8 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import user.User;
+import user.UserGenerator;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

@@ -22,10 +22,10 @@ import static org.junit.Assert.assertFalse;
 @RunWith(Parameterized.class)
 public class CreateOrderNegativeTest {
     private final List<String> ingredients;
-    private UserClient userClient;
-    private String token;
     private final int statusCode;
     private final String message;
+    private UserClient userClient;
+    private String token;
 
     public CreateOrderNegativeTest(List<String> ingredients, int statusCode, String message) {
         this.ingredients = ingredients;
@@ -65,8 +65,8 @@ public class CreateOrderNegativeTest {
         ValidatableResponse createOrderResponse = orderClient.create(order, token);
         assertEquals("Статус код ответа не соответствует ожидаемому", statusCode, createOrderResponse.extract().statusCode());
         if (statusCode != 500) {
-            assertFalse("Тело ответа не соответствует ожидаемому", createOrderResponse.extract().path("success"));
-            assertEquals("Тело ответа не соответствует ожидаемому", message, createOrderResponse.extract().path("message"));
+            assertFalse(createOrderResponse.extract().path("success"));
+            assertEquals(message, createOrderResponse.extract().path("message"));
         }
     }
 

@@ -1,17 +1,21 @@
-package user;
+package user.change;
 
 import clients.UserClient;
 import io.qameta.allure.Description;
+import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import user.User;
+import user.UserGenerator;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class UserChangeData {
+    private final int statusCode = 200;
     private UserClient userClient;
     private String token;
 
@@ -33,14 +37,24 @@ public class UserChangeData {
     public void changeDataAuthorizedUserAndCheckResponse() {
         User newUserData = UserGenerator.getRandom();
         ValidatableResponse changeUserResponse = userClient.change(token, newUserData);
-        assertEquals("Статус код ответа не соответствует ожидаемому", 200, changeUserResponse.extract().statusCode());
-        assertTrue("Тело ответа не соответствует ожидаемому", changeUserResponse.extract().path("success"));
+        compareStatusCodeWithExpected(changeUserResponse);
+        comparePathSuccessWithExpected(changeUserResponse);
 
         ValidatableResponse loginUserResponse = userClient.login(newUserData);
-        assertEquals("Статус код ответа не соответствует ожидаемому", 200, loginUserResponse.extract().statusCode());
-        assertTrue("Тело ответа не соответствует ожидаемому", loginUserResponse.extract().path("success"));
+        compareStatusCodeWithExpected(loginUserResponse);
+        comparePathSuccessWithExpected(loginUserResponse);
 
         token = loginUserResponse.extract().path("accessToken");
     }
 
+
+    @Step("Проверка статус кода")
+    public void compareStatusCodeWithExpected(ValidatableResponse response) {
+        assertEquals("Статус код ответа не соответствует ожидаемому", statusCode, response.extract().statusCode());
+    }
+
+    @Step("Проверка тела ответа")
+    public void comparePathSuccessWithExpected(ValidatableResponse response) {
+        assertTrue("Тело ответа не соответствует ожидаемому", response.extract().path("success"));
+    }
 }

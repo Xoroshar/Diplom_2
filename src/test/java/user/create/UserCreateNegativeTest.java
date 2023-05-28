@@ -1,4 +1,4 @@
-package user;
+package user.create;
 
 import clients.UserClient;
 import io.qameta.allure.Description;
@@ -8,6 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import user.User;
+import user.UserGenerator;
 
 import static org.junit.Assert.assertEquals;
 

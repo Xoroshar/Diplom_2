@@ -37,7 +37,6 @@ public class UserLoginTest {
         ValidatableResponse loginUserResponse = userClient.login(user);
         assertEquals("Статус код ответа не соответствует ожидаемому", 200, loginUserResponse.extract().statusCode());
         assertTrue("Тело ответа не соответствует ожидаемому", loginUserResponse.extract().path("success"));
-
         token = loginUserResponse.extract().path("accessToken");
     }
 }
